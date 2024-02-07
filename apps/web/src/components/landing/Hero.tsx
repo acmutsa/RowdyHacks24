@@ -79,6 +79,7 @@ export default function Hero() {
 					fill
 				/>
 			</motion.div>
+			{/* Might need to add priority to these */}
 			<div className="absolute w-full h-full">
 				<Image
 					src="/img/landing/layers/wall_left.svg"

@@ -83,10 +83,11 @@ let team: Array<Person> = [
     "https://joshuasilva.netlify.app/",
     "https://github.com/joshuasilva414"
   ),
+  // \u00A0Lead
   createPerson(
     "Christian",
     "Walker",
-    "Tech\u00A0Lead",
+    "Tech",
     "https://www.linkedin.com/in/christian-d-walker/",
     "",
     "https://github.com/christianhelp"

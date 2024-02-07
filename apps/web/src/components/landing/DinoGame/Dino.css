@@ -1,0 +1,75 @@
+/* Credit for stylesheet (modifications added): https: //www.codinn.dev/projects/react-dinosaur-game */
+
+.game {
+    width: 600px;
+    height: 225px;
+    border: 1px solid black;
+    background-color: black;
+    margin: auto;
+    position: relative;
+}
+.game-over{
+    position: absolute;
+    font-size: 2.25rem /* 36px */;
+    line-height: 2.5rem/* 40px */;
+    left:35%;
+    top:35%;
+}
+#dino {
+    width: 50px;
+    height: 50px;
+    background-image: url("../../../../public/img/landing/lil_man.png");
+    background-size: 50px 50px;
+    position: relative;
+    top: 150px;
+}
+
+.jump {
+    animation: jump 0.3s linear;
+}
+
+@keyframes jump {
+    0% {
+        top: 150px;
+    }
+
+    30% {
+        top: 130px;
+    }
+
+    50% {
+        top: 70px;
+    }
+
+    80% {
+        top: 130px;
+    }
+
+    100% {
+        top: 150px;
+    }
+}
+
+#cactus {
+    width: 20px;
+    height: 40px;
+    position: relative;
+    top: 110px;
+    left: 580px;
+
+    background-image: url("../../../../public/img/landing/RH_Icon.svg");
+    background-size: 20px 40px;
+}
+.block{
+    animation: block 1.5s infinite linear;
+}
+
+@keyframes block {
+    0% {
+        left: 580px;
+    }
+
+    100% {
+        left: -5px;
+    }
+}

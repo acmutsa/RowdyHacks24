@@ -7,6 +7,7 @@ import Partners from "@/components/landing/Partners";
 import FillerPartnersTeam from "@/components/landing/FillerPartnersTeam";
 import Team from "@/components/landing/Team";
 import Footer from "@/components/landing/Footer";
+import DinoGame from "@/components/landing/DinoGame/DinoGame";
 
 import { Oswald } from "next/font/google";
 
@@ -17,20 +18,22 @@ const oswald = Oswald({
 
 export default function Home() {
 	return (
-		<>
-			<Navbar />
-			<main className={`${oswald.variable} w-full overflow-x-hidden`}>
-				<Hero />
-				<Filler />
-				<About />
-				<FillerAboutPartners/>
-				<Partners /> 
-				<FillerPartnersTeam/>
-				<Team />
-				<Footer />
-			</main>
-		</>
-	);
+    <>
+      <Navbar />
+      <main className={`${oswald.variable} w-full overflow-x-hidden`}>
+        <Hero />
+        <DinoGame/>
+        <Filler />
+        <About />
+        <FillerAboutPartners />
+        <Partners />
+        <FillerPartnersTeam />
+        <Team />
+       
+        <Footer />
+      </main>
+    </>
+  );
 }
 
 export const runtime = "edge";
