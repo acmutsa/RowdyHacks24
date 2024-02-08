@@ -14,15 +14,22 @@ function Dino() {
   const [score, setScore] = useState(0);
   const [gameStarted,setGameStarted] = useState(false);
   const[gameOver,setGameOver] = useState(false);
+  const[highscore,setHighscore] = useState(0);
+  const[newHighScore,setNewHighScore] = useState(false)
   
   const startGame = ()=>{setGameStarted(true);}
 
   const endGame = ()=>{
     console.log("Game over!");
     setGameOver(true);
+    if (score > highscore){
+      setNewHighScore(true);
+      setHighscore(score);
+    }
     ObstacleRef.current.classList.remove("block");
     setTimeout(()=>{
       setScore(0);
+      setHighscore(false);
       setGameOver(false);
       setGameStarted(false);
     },2000);
@@ -49,7 +56,7 @@ function Dino() {
   useEffect(() => {
     const isAlive = setInterval(function () {
       // get current dino Y position
-      if (gameStarted){
+      if (gameStarted && !gameOver){
         const dinoTop = parseInt(
           getComputedStyle(dinoRef.current).getPropertyValue("top")
         );
@@ -65,7 +72,7 @@ function Dino() {
           endGame();
           
         } else {
-          // setScore(score + 1);
+          setScore(score + 1);
         }
       }
     }, 10);
@@ -95,25 +102,37 @@ function Dino() {
   }, [gameStarted]);
 
   return (
-    <div className="game text-[#FEF2E6] ${rubik_burned.className}">
+    <div className={`game text-[#FEF2E6] ${rubik_burned.className}`}>
       {gameStarted ? (
         <>
-          <div className="w-full h-auto flex justify-start items-start">
+          <div className="w-full h-auto flex justify-between items-start">
             <h1 className={`pl-2 `}>{`Score : ${score}`}</h1>
+            <h1 className={`pl-2 `}>{`High Score : ${highscore}`}</h1>
           </div>
         </>
       ) : (
-        <div className="flex h-full w-full justify-center items-center text-5xl">
+        <div className="flex flex-col h-full w-full justify-center items-center text-5xl">
           <h1 className={`  ${rubik_burned.className}`}>
-            Press <span className="text-[#A88567] font-bold">s</span>{" "}
+            Press <span className="text-[#A88567] text-5xl font-bold">S</span>{" "}
             To Start
+          </h1>
+          <h1>
+            Press <span className="text-[#A88567] font-bold">J</span> to Jump!
           </h1>
         </div>
       )}
 
       {gameOver ? (
-        <h1 className={`game-over ${rubik_burned.className}`}>Game Over!</h1>
+        <div className="relative w-full h-full">
+          <h1 className={`game-over ${rubik_burned.className}`}>Game Over!</h1>
+          {highscore ? (
+            <h1 className={`highscore ${rubik_burned.className}`}>
+              New High Score : {highscore}
+            </h1>
+          ) : null}
+        </div>
       ) : null}
+
       {/* Add highscore functionality */}
       {/* Set a bit of offset for different obstacles and when they spawn */}
       <div id="dino" ref={dinoRef}></div>
