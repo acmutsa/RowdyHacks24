@@ -38,6 +38,7 @@ export default async function Page() {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 w-full p-2 gap-y-2">
 				{/* <Day title="Saturday" />
 				<Day title="Sunday" /> */}
+      {console.log(entries)}
 				{entries.map(([key, value]) => (
 					<Day
 						key={key}
