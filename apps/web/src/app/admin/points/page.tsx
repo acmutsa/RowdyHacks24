@@ -1,7 +1,9 @@
+import PointsScanner from "@/components/dash/admin/scanner/PointsScanner";
+
 export default function Points() {
 	return (
-		<main className="h-dvh pt-28">
-			<p>Coming soon...</p>
-		</main>
+    <div>
+      <PointsScanner />
+    </div>
 	);
 }
