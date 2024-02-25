@@ -3,7 +3,7 @@ import PointsScanner from "@/components/dash/admin/scanner/PointsScanner";
 export default function Points() {
 	return (
     <div>
-      <PointsScanner />
+      <PointsScanner hasScanned={false} scan={null} scanUser={null} />
     </div>
 	);
 }
