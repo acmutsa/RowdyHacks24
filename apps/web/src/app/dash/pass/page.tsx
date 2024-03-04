@@ -9,7 +9,7 @@ import c from "config";
 import { format } from "date-fns";
 import TiltWrapper from "@/components/dash/shared/TiltWrapper";
 import { createQRpayload } from "@/lib/utils/shared/qr";
-import FullScreenQR from "./FullScreenQR";
+import UserQRCode from "./UserQRCode";
 
 interface EventPassProps {
 	user: InferModel<typeof users>;
@@ -52,7 +52,7 @@ function EventPass({ qrPayload, user, clerk,guild }: EventPassProps) {
             alt={`${user.firstName}'s Profile Picture`}
             width={100}
             height={100}
-            className="rounded-full mx-auto"
+            className="rounded-full mx-auto my-4"
           />
           <h1 className="text-4xl font-bold text-center mt-2">
             {user.firstName}
@@ -72,12 +72,6 @@ function EventPass({ qrPayload, user, clerk,guild }: EventPassProps) {
           />
           <div className="w-full h-20 grid grid-cols-2">
             <div className="w-full h-full flex items-center justify-start pl-2">
-              <Image
-                src={c.icon.svg}
-                height={60}
-                width={60}
-                alt={`${c.hackathonName} Logo`}
-              />
               <h1 className="font-bold ml-1 text-md leading-tight">
                 {c.hackathonName}{" "}
                 <span className="text-hackathon">{c.itteration}</span>
@@ -92,17 +86,7 @@ function EventPass({ qrPayload, user, clerk,guild }: EventPassProps) {
             </div>
           </div>
         </div>
-        <div className="h-[25%] w-full flex items-center justify-center border-dashed border-muted">
-          <div className="h-[90%] aspect-square overflow-x-hidden flex items-center justify-center border-dashed border-muted border-2 p-2 rounded-xl">
-            <QRCode
-              className="h-full"
-              bgColor="hsl(var(--background))"
-              fgColor="hsl(var(--primary))"
-              value={qrPayload}
-            />
-          </div>
-        </div>
-        <FullScreenQR QRstring={qrPayload} />
+        <UserQRCode QRstring={qrPayload} />
       </div>
       <div className="absolute z-10 translate-y-[50%] bottom-0 left-1/2 border-background dark:border border-2 border-t-muted border-l-muted rotate-45 -translate-x-1/2  w-[75px] h-[75px] bg-background rounded-full" />
     </div>

@@ -75,7 +75,8 @@ export default async function Page({searchParams}:{searchParams:{[key:string]:st
             <h1>No Results :(</h1>
           </div>
         )}
-        {/* <Filters/> */}
+        {/* FILTERS NEED TO BE ADDED AND FIXED */}
+        <Filters/>
       </div>
       <DefaultPagination maxPages={Math.ceil(userData.length / maxPerPage)} />
     </div>

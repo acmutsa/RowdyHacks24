@@ -1,3 +1,4 @@
+// TODO: FINISH!
 export default function Points() {
 	return (
 		<main className="h-dvh pt-28">
