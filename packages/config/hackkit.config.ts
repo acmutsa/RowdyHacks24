@@ -1,28 +1,5 @@
 export const defaultTheme = "dark";
-
-export default {
-	hackathonName: "RowdyHacks",
-	itteration: "IX",
-	siteUrl: "https://rowdyhacks.org", // Do not have a trailing slash
-	defaultMetaDataDescription:
-		"RowdyHacks is a free, weekend-long, overnight hackathon hosted at UTSA! Students can join us to network, code, collaborate, and compete. We welcome hackers from all disciplines, backgrounds, & technical levels!",
-	botName: "HackKit",
-	botParticipantRole: "RH24 Participant",
-	hackathonTimezone: "America/Chicago",
-	localUniversityName: "The University of Texas at San Antonio",
-	localUniversityShortIDName: "ABC123",
-	localUniversityShortIDMaxLength: 6,
-	dietaryRestrictionOptions: [
-		"Vegan",
-		"Vegetarian",
-		"Nuts",
-		"Fish",
-		"Wheat",
-		"Dairy",
-		"Eggs",
-		"Halal",
-	],
-	groups: {
+const groups = {
 		"T-rex | Group A": {
 			discordRole: "T-rex",
 		},
@@ -53,7 +30,44 @@ export default {
 		"Stegosaurus | Group B": {
 			discordRole: "Stegosaurus",
 		},
-	},
+	}
+type categoryMap = {
+  [key: string]: string[];
+};
+const guilds = Object.keys(groups);
+const categories:categoryMap = {
+  Role: ["Hacker", "Volunteer", "Mentor"],
+  Alphabetically: ["A-Z", "Z-A"],
+  Points:["ASC","DESC"],
+  Guild:guilds,
+  Timestamp: ["Most Recent", "Less Recent"],
+}
+
+export default {
+	hackathonName: "RowdyHacks",
+	itteration: "IX",
+	siteUrl: "https://rowdyhacks.org", // Do not have a trailing slash
+	defaultMetaDataDescription:
+		"RowdyHacks is a free, weekend-long, overnight hackathon hosted at UTSA! Students can join us to network, code, collaborate, and compete. We welcome hackers from all disciplines, backgrounds, & technical levels!",
+	botName: "HackKit",
+	botParticipantRole: "RH24 Participant",
+	hackathonTimezone: "America/Chicago",
+	localUniversityName: "The University of Texas at San Antonio",
+	localUniversityShortIDName: "ABC123",
+	localUniversityShortIDMaxLength: 6,
+	dietaryRestrictionOptions: [
+		"Vegan",
+		"Vegetarian",
+		"Nuts",
+		"Fish",
+		"Wheat",
+		"Dairy",
+		"Eggs",
+		"Halal",
+	],
+	groups: groups,
+	guilds:guilds,
+	categories:categories,
 	issueEmail: "team@rowdyhacks.org",
 	links: {
 		discord: "https://go.rowdyhacks.org/discord",
@@ -683,3 +697,4 @@ export const majors = [
 	"Webpage Design",
 	"Other",
 ] as const;
+

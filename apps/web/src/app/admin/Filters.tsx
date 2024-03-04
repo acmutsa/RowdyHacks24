@@ -15,26 +15,24 @@ import {
   AccordionTrigger,
 } from "@/components/shadcn/ui/accordion";
 import FilterCategory from "./FilterCategory";
+import c from "config";
 
 type categoryMap = {
   [key: string]: string[];
 };
 
-const categoriesMap: categoryMap = {
-  Role: ["Hacker", "Volunteer", "Mentor"],
-  Alphabetically: ["A-Z", "Z-A"],
-  Timestamp: ["Most Recent", "Less Recent"],
-};
+
+const categoriesMap:categoryMap = c.categories;
 
 export default function Filters() {
   return (
-    <Card className="h-full max-w-4xl">
+    <Card className="h-full max-w-5xl">
       <CardHeader className="">
         <CardTitle>Filters</CardTitle>
       </CardHeader>
       <CardContent className="">
         <Accordion type="single" collapsible className="max-w-full">
-          {Object.keys(categoriesMap).map((name, index, category) => (
+          {Object.keys(c.categories).map((name, index) => (
             <FilterCategory
               name={name}
               items={categoriesMap[name]}
