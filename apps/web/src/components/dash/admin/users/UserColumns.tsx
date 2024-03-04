@@ -5,6 +5,8 @@ import { z } from "zod";
 import { createSelectSchema } from "drizzle-zod";
 import { users, registrationData, profileData } from "db/schema";
 import Link from "next/link";
+import c from "config";
+
 import { Button } from "@/components/shadcn/ui/button";
 
 const userValidator = createSelectSchema(users).merge(
@@ -18,9 +20,11 @@ const userValidator = createSelectSchema(users).merge(
 	})
 );
 
+const groups = Object.keys(c.groups);
+
 export type userValidatorType = Pick<
 	z.infer<typeof userValidator>,
-	"clerkID" | "createdAt" | "firstName" | "lastName" | "profileData" | "email" | "role"
+	"clerkID" | "createdAt" | "firstName" | "lastName" | "profileData" | "email" | "role" | "group"
 >;
 
 export const columns: ColumnDef<userValidatorType>[] = [
@@ -39,8 +43,9 @@ export const columns: ColumnDef<userValidatorType>[] = [
 		cell: ({ row }) => `@${row.original.profileData.hackerTag}`,
 	},
 	{
-		accessorKey: "clerkID",
-		header: "Account ID",
+		accessorKey: "group",
+		header: "Group",
+		cell:({row})=> `${groups[row.original.group]}`,
 	},
 	{
 		accessorKey: "role",
@@ -48,7 +53,7 @@ export const columns: ColumnDef<userValidatorType>[] = [
 	},
 	{
 		accessorKey: "createdAt",
-		header: "Signup Date",
+		header: "Reg Date",
 		cell: ({ row }) => (
 			<span suppressHydrationWarning={true}>
 				{new Date(row.original.createdAt).toLocaleDateString() + " "}
