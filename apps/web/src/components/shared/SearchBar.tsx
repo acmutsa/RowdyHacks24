@@ -10,13 +10,13 @@ export default function SearchBar(){
   const params = useSearchParams();
 
 
-  // Uses path name it is already on...?
+  // Uses path name it is already on
   const path = usePathname();
   const user = params.get("user") ?? "";
   const [input,setInput] = useState("");
 
   const checkedBoxes = params.get("checkedBoxes") ?? "";
-
+  // Needs to handle search for first and last name
   function handleSearch(user: string) {
     const url = `${path}?page=1&user=${user}&checkedBoxes=${checkedBoxes}`;
     setInput(user);
@@ -24,19 +24,18 @@ export default function SearchBar(){
     router.push(url);
   }
 
+
   return (
     <div className="flex items-center justify-center">
-      {/* Needs to clear text */}
       <Input
+      className=" focus-visible:border-none"
         placeholder="Search for users"
         value={input}
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
-        // Render a little x here to clear out the stuff
       />
       <button
-      
        onClick={()=>{
         setInput("");
         const url = `${path}`
