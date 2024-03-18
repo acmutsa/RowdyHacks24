@@ -19,6 +19,7 @@ interface NavbarProps {
 
 export default async function Navbar({ className }: NavbarProps) {
   const user = await currentUser();
+  console.log("User:\n",user);
   return (
     <div className="w-screen z-50">
       <div

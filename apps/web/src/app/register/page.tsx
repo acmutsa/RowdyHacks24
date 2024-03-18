@@ -13,18 +13,21 @@ import { Button } from "@/components/shadcn/ui/button";
 
 export default async function Page() {
 	const { userId } = auth();
-
+	console.log("User ID:",userId);
 	if (!userId) return redirect("/sign-up");
-
+	
+	// Why do we need our current user if all we are using is the id?
 	const user = await currentUser();
-
+	
 	if (!user) return redirect("/sign-up");
 
+	
 	const registration = await db.query.users.findFirst({
 		where: eq(users.clerkID, user.id),
 	});
 
 	if (registration) {
+		console.log("Redirecting to Dash");
 		return redirect("/dash");
 	}
 

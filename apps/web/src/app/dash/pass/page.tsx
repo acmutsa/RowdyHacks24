@@ -30,7 +30,6 @@ export default async function Page() {
 
 	const qrPayload = createQRpayload({ userID: user.id, createdAt: new Date() });
   const guild = Object.keys(c.groups)[userDbRecord.group];
-
 	return (
 		<div className="flex items-center justify-center min-h-[calc(100vh-7rem)] bg-nav">
 			{/* <QRCode value={qrObject} /> */}

@@ -41,7 +41,7 @@ export default async function Page({searchParams}:{searchParams:{[key:string]:st
   
 
   return (
-    <div className="max-w-7xl mx-auto px-5 pt-44">
+    <div className="max-w-7xl mx-auto px-5 pt-44 overflow-x-visible">
       <div className="w-full grid grid-cols-3 mb-5">
         <div className="flex items-center">
           <div>
@@ -62,7 +62,7 @@ export default async function Page({searchParams}:{searchParams:{[key:string]:st
         </div>
       </div>
       {/* TODO: Would very much like to not have "as any" here in the future */}
-      <div className="w-full flex space-x-10">
+      <div className="w-full flex md:justify-start justify-center items-center space-x-5">
         {userData && userData.length > 0 ? (
           <>
             <DataTable

@@ -34,12 +34,13 @@ const groups = {
 type categoryMap = {
   [key: string]: string[];
 };
+
 const guilds = Object.keys(groups);
 const categories:categoryMap = {
   Role: ["Hacker", "Volunteer", "Mentor"],
+  Guild:guilds,
   Alphabetically: ["A-Z", "Z-A"],
   Points:["ASC","DESC"],
-  Guild:guilds,
   Timestamp: ["Most Recent", "Less Recent"],
 }
 
@@ -97,6 +98,7 @@ export default {
 			Points: "/admin/points",
 			"Check-in": "/admin/check-in",
 			Toggles: "/admin/toggles",
+			"Stats For Nerds":"/admin/stats"
 		},
 		// TODO: Can remove days? Pretty sure they're dynamic now.
 	},
