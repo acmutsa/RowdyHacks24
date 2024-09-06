@@ -6,7 +6,7 @@ import { defaultTheme } from "config";
 import { Metadata } from "next";
 import c from "config";
 
-export const metdata: Metadata = {
+export const metadata: Metadata = {
 	title: `${c.hackathonName} ${c.itteration}`,
 	description:c.defaultMetaDataDescription
 }
