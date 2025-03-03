@@ -151,7 +151,7 @@ export const perms = ["hacker", "volunteer", "mentor", "mlh", "admin", "super_ad
 
 // These are routes (pages) which do not require a account / authentication. They are used in the authMiddleware in middleware.ts. Be careful which routes you add here!
 
-export const publicRoutes = ["/", /^\/schedule(\/.*)?$/, /^\/@/, /^\/user\//, "/404", "/bugreport"];
+export const publicRoutes = ["/", /^\/schedule(\/.*)?$/, /^\/@/, /^\/user\//, "/404", "/bugreport", "/past"];
 
 // Generally it is reccomended to put your primary audience's university at the top of this list.
 
