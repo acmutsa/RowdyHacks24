@@ -39,9 +39,9 @@ export default async function Navbar({ className }: NavbarProps) {
                 {c.hackathonName}
               </h2>
             </Link>
-            <div className="hidden md:flex items-center justify-start gap-x-5 col-span-2">
+            {/* <div className="hidden md:flex items-center justify-start gap-x-5 col-span-2">
               <NavBarLinksGrouper />
-            </div>
+            </div> */}
           </div>
 
           <div className="items-center justify-between md:justify-center flex space-x-2">
