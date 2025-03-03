@@ -6,11 +6,12 @@ dotenv.config({
 });
 
 export default {
-	schema: "./schema.ts",
-	out: "./drizzle",
-	driver: "pg",
-	dbCredentials: {
-		connectionString: `${process.env.POSTGRES_URL as string}?sslmode=require`,
-	},
-	breakpoints: true,
+  schema: "./schema.ts",
+  out: "./drizzle",
+	driver:"turso",
+  dbCredentials: {
+    url: process.env.TURSO_DATABASE_URL!,
+    authToken: process.env.TURSO_AUTH_TOKEN,
+  },
+  breakpoints: true,
 } satisfies Config;

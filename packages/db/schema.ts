@@ -1,64 +1,22 @@
-/*
+import { sqliteTable, text, integer, primaryKey } from "drizzle-orm/sqlite-core";
+import { relations, sql } from "drizzle-orm";
 
-When changes are made to this file, you must run the following command to create the SQL migrations:
-
-pnpm run generate
-
-more info: https://orm.drizzle.team/kit-docs/overview
-
-*/
-
-import {
-	bigserial,
-	text,
-	varchar,
-	uniqueIndex,
-	boolean,
-	timestamp,
-	integer,
-	json,
-	pgEnum,
-	primaryKey,
-	pgTable,
-} from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
-
-export const roles = pgEnum("role", [
-	"hacker",
-	"volunteer",
-	"mentor",
-	"mlh",
-	"admin",
-	"super_admin",
-]);
-
-export const fileTypesEnum = pgEnum("type", ["generic", "resume"]);
-
-export const inviteType = pgEnum("invite_status", ["pending", "accepted", "declined"]);
-
-export const discordVerificationStatus = pgEnum("discord_status", [
-	"pending",
-	"expired",
-	"accepted",
-	"rejected",
-]);
-
-export const users = pgTable("users", {
-	clerkID: varchar("clerk_id", { length: 255 }).notNull().primaryKey().unique(),
-	firstName: varchar("first_name", { length: 50 }).notNull(),
-	lastName: varchar("last_name", { length: 50 }).notNull(),
-	email: varchar("email", { length: 255 }).notNull().unique(),
-	hackerTag: varchar("hacker_tag", { length: 50 }).notNull().unique(),
-	registrationComplete: boolean("registration_complete").notNull().default(false),
-	createdAt: timestamp("created_at").notNull().defaultNow(),
-	hasSearchableProfile: boolean("has_searchable_profile").notNull().default(true),
+export const users = sqliteTable("users", {
+	clerkID: text("clerk_id", { length: 255 }).notNull().primaryKey().unique(),
+	firstName: text("first_name", { length: 50 }).notNull(),
+	lastName: text("last_name", { length: 50 }).notNull(),
+	email: text("email", { length: 255 }).notNull().unique(),
+	hackerTag: text("hacker_tag", { length: 50 }).notNull().unique(),
+	registrationComplete: integer("registration_complete", {mode:"boolean"}).notNull().default(false),
+	createdAt: integer("created_at", {mode:"timestamp_ms"}).notNull().default(sql`(current_timestamp)`),
+	hasSearchableProfile: integer("has_searchable_profile", {mode:"boolean"}).notNull().default(true),
 	group: integer("group").notNull(),
-	role: roles("role").notNull().default("hacker"),
-	checkinTimestamp: timestamp("checkin_timestamp"),
-	teamID: varchar("team_id", { length: 50 }),
+	role: text("role").notNull().default("hacker"),
+	checkinTimestamp: integer("checkin_timestamp", {mode:"timestamp_ms"}),
+	teamID: text("team_id", { length: 50 }),
 	points: integer("points").notNull().default(0),
-	checkedIn: boolean("checked_in").notNull().default(false),
-	rsvp: boolean("rsvp").notNull().default(false),
+	checkedIn: integer("checked_in", {mode:"boolean"}).notNull().default(false),
+	rsvp: integer("rsvp", {mode:"boolean"}).notNull().default(false),
 });
 
 export const userRelations = relations(users, ({ one, many }) => ({
@@ -83,64 +41,72 @@ export const userRelations = relations(users, ({ one, many }) => ({
 	invites: many(invites),
 }));
 
-export const registrationData = pgTable("registration_data", {
-	clerkID: varchar("clerk_id", { length: 255 }).notNull().primaryKey().unique(),
+export const registrationData = sqliteTable("registration_data", {
+	clerkID: text("clerk_id", { length: 255 }).notNull().primaryKey().unique(),
 	age: integer("age").notNull(),
-	gender: varchar("gender", { length: 50 }).notNull(),
-	race: varchar("race", { length: 75 }).notNull(),
-	ethnicity: varchar("ethnicity", { length: 50 }).notNull(),
-	acceptedMLHCodeOfConduct: boolean("accepted_mlh_code_of_conduct").notNull(),
-	sharedDataWithMLH: boolean("shared_data_with_mlh").notNull(),
-	wantsToReceiveMLHEmails: boolean("wants_to_receive_mlh_emails").notNull(),
-	university: varchar("university", { length: 200 }).notNull(),
-	major: varchar("major", { length: 200 }).notNull(),
-	shortID: varchar("short_id", { length: 50 }).notNull(),
-	levelOfStudy: varchar("level_of_study", { length: 50 }).notNull(),
+	gender: text("gender", { length: 50 }).notNull(),
+	race: text("race", { length: 75 }).notNull(),
+	ethnicity: text("ethnicity", { length: 50 }).notNull(),
+	acceptedMLHCodeOfConduct: integer("accepted_mlh_code_of_conduct", {
+		mode: "boolean",
+	}).notNull(),
+	sharedDataWithMLH: integer("shared_data_with_mlh", {
+		mode: "boolean",
+	}).notNull(),
+	wantsToReceiveMLHEmails: integer("wants_to_receive_mlh_emails", {
+		mode: "boolean",
+	}).notNull(),
+	university: text("university", { length: 200 }).notNull(),
+	major: text("major", { length: 200 }).notNull(),
+	shortID: text("short_id", { length: 50 }).notNull(),
+	levelOfStudy: text("level_of_study", { length: 50 }).notNull(),
 	hackathonsAttended: integer("hackathons_attended").notNull(),
-	softwareExperience: varchar("software_experience", { length: 25 }).notNull(),
-	heardFrom: varchar("heard_from", { length: 50 }),
-	shirtSize: varchar("shirt_size", { length: 5 }).notNull(),
-	dietRestrictions: json("diet_restrictions").notNull(),
+	softwareExperience: text("software_experience", { length: 25 }).notNull(),
+	heardFrom: text("heard_from", { length: 50 }),
+	shirtSize: text("shirt_size", { length: 5 }).notNull(),
+	dietRestrictions: text("diet_restrictions", { mode: "json" })
+		.notNull()
+		.$type<string[]>(),
 	accommodationNote: text("accommodation_note"),
-	GitHub: varchar("github", { length: 100 }),
-	LinkedIn: varchar("linkedin", { length: 100 }),
-	PersonalWebsite: varchar("personal_website", { length: 100 }),
-	resume: varchar("resume", { length: 255 })
+	GitHub: text("github", { length: 100 }),
+	LinkedIn: text("linkedin", { length: 100 }),
+	PersonalWebsite: text("personal_website", { length: 100 }),
+	resume: text("resume", { length: 255 })
 		.notNull()
 		.default("https://static.acmutsa.org/No%20Resume%20Provided.pdf"),
 });
 
-export const profileData = pgTable("profile_data", {
-	hackerTag: varchar("hacker_tag", { length: 50 }).notNull().primaryKey().unique(),
-	discordUsername: varchar("discord_username", { length: 60 }).notNull(),
-	pronouns: varchar("pronouns", { length: 20 }).notNull(),
+export const profileData = sqliteTable("profile_data", {
+	hackerTag: text("hacker_tag", { length: 50 }).notNull().primaryKey().unique(),
+	discordUsername: text("discord_username", { length: 60 }).notNull(),
+	pronouns: text("pronouns", { length: 20 }).notNull(),
 	bio: text("bio").notNull(),
-	skills: json("skills").notNull().$type<string[]>().default([]),
-	profilePhoto: varchar("profile_photo", { length: 255 }).notNull(),
+	skills: text("skills", {mode:"json"}).notNull().$type<string[]>(),
+	profilePhoto: text("profile_photo", { length: 255 }).notNull(),
 });
 
-export const events = pgTable("events", {
-	id: bigserial("id", { mode: "number" }).notNull().primaryKey().unique(),
-	title: varchar("name", { length: 255 }).notNull(),
-	startTime: timestamp("start_time").notNull(),
-	endTime: timestamp("end_time").notNull(),
+export const events = sqliteTable("events", {
+	id: integer("id", { mode: "number" }).primaryKey(),
+	title: text("name", { length: 255 }).notNull(),
+	startTime: integer("start_time", {mode:"timestamp_ms"}).notNull(),
+	endTime: integer("end_time", {mode:"timestamp_ms"}).notNull(),
 	description: text("description").notNull(),
-	type: varchar("type", { length: 50 }).notNull(),
-	host: varchar("host", { length: 255 }),
-	hidden: boolean("hidden").notNull().default(false),
+	type: text("type", { length: 50 }).notNull(),
+	host: text("host", { length: 255 }),
+	hidden: integer("hidden", {mode:"boolean"}).notNull().default(false),
 });
 
 export const eventsRelations = relations(events, ({ many }) => ({
 	scans: many(scans),
 }));
 
-export const files = pgTable("files", {
-	id: varchar("id", { length: 255 }).notNull().primaryKey().unique(),
+export const files = sqliteTable("files", {
+	id: text("id", { length: 255 }).notNull().primaryKey().unique(),
 	presignedURL: text("presigned_url").notNull(),
-	key: varchar("key", { length: 500 }).notNull().unique(),
-	validated: boolean("validated").notNull().default(false),
-	type: fileTypesEnum("type").notNull(),
-	ownerID: varchar("owner_id", { length: 255 }).notNull(),
+	key: text("key", { length: 500 }).notNull().unique(),
+	validated: integer("validated", {mode:"boolean"}).notNull().default(false),
+	type: text("type").notNull(),
+	ownerID: text("owner_id", { length: 255 }).notNull(),
 });
 
 export const filesRelations = relations(files, ({ one }) => ({
@@ -150,11 +116,11 @@ export const filesRelations = relations(files, ({ one }) => ({
 	}),
 }));
 
-export const scans = pgTable(
+export const scans = sqliteTable(
 	"scans",
 	{
-		updatedAt: timestamp("updated_at").notNull().defaultNow(),
-		userID: varchar("user_id", { length: 255 }).notNull(),
+		updatedAt: integer("updated_at", {mode:"timestamp_ms"}).notNull().default(sql`(current_timestamp)`),
+		userID: text("user_id", { length: 255 }).notNull(),
 		eventID: integer("event_id").notNull(),
 		count: integer("count").notNull(),
 	},
@@ -174,15 +140,15 @@ export const scansRelations = relations(scans, ({ one }) => ({
 	}),
 }));
 
-export const teams = pgTable("teams", {
-	id: varchar("id", { length: 50 }).notNull().primaryKey().unique(),
-	name: varchar("name", { length: 255 }).notNull(),
-	tag: varchar("tag", { length: 50 }).notNull().unique(),
+export const teams = sqliteTable("teams", {
+	id: text("id", { length: 50 }).notNull().primaryKey().unique(),
+	name: text("name", { length: 255 }).notNull(),
+	tag: text("tag", { length: 50 }).notNull().unique(),
 	bio: text("bio"),
-	photo: varchar("photo", { length: 400 }).notNull(),
-	createdAt: timestamp("created_at").notNull().defaultNow(),
-	ownerID: varchar("owner_id", { length: 255 }).notNull(),
-	devpostURL: varchar("devpost_url", { length: 255 }),
+	photo: text("photo", { length: 400 }).notNull(),
+	createdAt: integer("created_at", {mode:"timestamp_ms"}).notNull().default(sql`(current_timestamp)`),
+	ownerID: text("owner_id", { length: 255 }).notNull(),
+	devpostURL: text("devpost_url", { length: 255 }),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
@@ -190,16 +156,18 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
 	invites: many(invites),
 }));
 
-export const invites = pgTable(
+export const invites = sqliteTable(
 	"invites",
 	{
-		inviteeID: varchar("invitee_id", { length: 255 }).notNull(),
-		teamID: varchar("team_id", { length: 50 }).notNull(),
-		createdAt: timestamp("created_at").notNull().defaultNow(),
-		status: inviteType("status").notNull().default("pending"),
+		inviteeID: text("invitee_id", { length: 255 }).notNull(),
+		teamID: text("team_id", { length: 50 }).notNull(),
+		createdAt: integer("created_at", { mode: "timestamp_ms" })
+			.notNull()
+			.default(sql`(current_timestamp)`),
+		status: text("status").notNull().default("pending"),
 	},
 	(table) => ({
-		id: primaryKey(table.inviteeID, table.teamID),
+		id: primaryKey({ columns: [table.inviteeID, table.teamID] }),
 	})
 );
 
@@ -214,22 +182,22 @@ export const invitesRelations = relations(invites, ({ one }) => ({
 	}),
 }));
 
-export const errorLog = pgTable("error_log", {
-	id: varchar("id", { length: 50 }).notNull().primaryKey(),
-	createdAt: timestamp("created_at").notNull().defaultNow(),
-	userID: varchar("user_id", { length: 255 }),
-	route: varchar("route", { length: 255 }),
+export const errorLog = sqliteTable("error_log", {
+	id: text("id", { length: 50 }).notNull().primaryKey(),
+	createdAt: integer("created_at", {mode:"timestamp_ms"}).notNull().default(sql`(current_timestamp)`),
+	userID: text("user_id", { length: 255 }),
+	route: text("route", { length: 255 }),
 	message: text("message").notNull(),
 });
 
-export const discordVerification = pgTable("discord_verification", {
-	code: varchar("code", { length: 255 }).notNull().primaryKey(),
-	createdAt: timestamp("created_at").notNull().defaultNow(),
-	clerkID: varchar("clerk_id", { length: 255 }),
-	discordUserID: varchar("discord_user_id", { length: 255 }).notNull(),
-	discordUserTag: varchar("discord_user_tag", { length: 255 }).notNull(),
-	discordProfilePhoto: varchar("discord_profile_photo", { length: 255 }).notNull(),
-	discordName: varchar("discord_name", { length: 255 }).notNull(),
-	status: discordVerificationStatus("status").notNull().default("pending"),
-	guild: varchar("guild", { length: 100 }).notNull(),
+export const discordVerification = sqliteTable("discord_verification", {
+	code: text("code", { length: 255 }).notNull().primaryKey(),
+	createdAt: integer("created_at", {mode:"timestamp_ms"}).notNull().default(sql`(current_timestamp)`),
+	clerkID: text("clerk_id", { length: 255 }),
+	discordUserID: text("discord_user_id", { length: 255 }).notNull(),
+	discordUserTag: text("discord_user_tag", { length: 255 }).notNull(),
+	discordProfilePhoto: text("discord_profile_photo", { length: 255 }).notNull(),
+	discordName: text("discord_name", { length: 255 }).notNull(),
+	status: text("status").notNull().default("pending"),
+	guild: text("guild", { length: 100 }).notNull(),
 });

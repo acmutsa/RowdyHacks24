@@ -47,37 +47,7 @@ export default async function Navbar({ className }: NavbarProps) {
 
           <div className="items-center justify-between md:justify-center flex space-x-2">
             <div className="gap-x-4 md:flex hidden">
-              {user ? (
-                <>
-                  <Link
-                    href={
-                      user.publicMetadata.registrationComplete
-                        ? "/dash"
-                        : "/register"
-                    }>
-                    <Button
-                      variant={"outline"}
-                      className="bg-nav hover:bg-background">
-                      {user.publicMetadata.registrationComplete
-                        ? "Dashboard"
-                        : "Complete Registration"}
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link href={"/sign-in"}>
-                    <Button
-                      variant={"outline"}
-                      className="bg-nav hover:bg-background">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link href={"/register"}>
-                    <Button>Register</Button>
-                  </Link>
-                </>
-              )}
+              
             </div>
               <ProfileButton/>
           </div>
