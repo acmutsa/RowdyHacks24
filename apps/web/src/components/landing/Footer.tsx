@@ -149,14 +149,6 @@ export default function Footer() {
             </Link>
           </div>
           <div className="col-span-5 h-10"></div>
-          <div className="flex col-span-1 justify-center h-[44px] w-[212px]">
-            <a href="https://vercel.com/?utm_source=ACM%20UTSA&utm_campaign=oss">
-              <img
-                className="invert h-[44px] w-[212px]"
-                src="https://static.rowdyhacks.org/img/powered-by-vercel.svg"
-              />
-            </a>
-          </div>
           <div className="col-span-3 text-white text-xs font-sans flex items-center justify-center">
             <p className="text-center">
               Made with &lt;/&gt; & ♥ @ RowdyHacks
@@ -330,16 +322,6 @@ export default function Footer() {
                 </Link>
               </div>
             ) : null}
-          </div>
-        </div>
-        <div className="sm:col-span-1 col-span-2">
-          <div className="flex justify-center items-center min-h-[44px] h-full w-full">
-            <a href="https://vercel.com/?utm_source=ACM%20UTSA&utm_campaign=oss">
-              <img
-                className="invert h-[44px] w-[212px]"
-                src="https://static.rowdyhacks.org/img/powered-by-vercel.svg"
-              />
-            </a>
           </div>
         </div>
         <div className="sm:col-span-1 sm:mt-0 mt-10 col-span-2">
