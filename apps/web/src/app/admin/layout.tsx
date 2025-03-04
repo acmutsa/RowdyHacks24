@@ -12,7 +12,6 @@ import ProfileButton from "@/components/shared/ProfileButton";
 import { Suspense } from "react";
 import ClientToast from "@/components/shared/ClientToast";
 import { redirect } from "next/navigation";
-import NavBarLinksGrouper from "@/components/shared/NavBarLinksGrouper";
 
 
 interface AdminLayoutProps {

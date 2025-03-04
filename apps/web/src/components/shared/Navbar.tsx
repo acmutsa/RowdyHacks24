@@ -4,7 +4,6 @@ import c from "config";
 import { Button } from "../shadcn/ui/button";
 import ProfileButton from "./ProfileButton";
 import { auth, currentUser } from "@clerk/nextjs";
-import NavBarLinksGrouper from "./NavBarLinksGrouper";
 import { Oswald } from "next/font/google";
 import { cn } from "@/lib/utils/client/cn";
 
@@ -41,7 +40,7 @@ export default async function Navbar({ className }: NavbarProps) {
               </h2>
             </Link>
             <div className="hidden md:flex items-center justify-start gap-x-5 col-span-2">
-              <NavBarLinksGrouper />
+              {/* <NavBarLinksGrouper /> */}
             </div>
           </div>
 
