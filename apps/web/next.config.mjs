@@ -5,6 +5,7 @@ const nextConfig = {
 	swcMinify: true,
 	transpilePackages: ["db"],
 	images: {
+		unoptimized: true,
 		domains: [
 			"images.clerk.dev",
 			"www.gravatar.com",
